@@ -1,0 +1,3 @@
+rootProject.name = 'sb-with-grafana-stack'
+include 'shopping-cart'
+include 'wish-list'

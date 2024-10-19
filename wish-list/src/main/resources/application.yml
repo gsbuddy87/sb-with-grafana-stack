@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: wish-list
+server:
+  port: 8001
+    # graceful shutdown makes sure we have time to finnish any ongoing rest requests before terminating
+    # default value will be 30s before terminating
+  shutdown: graceful
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+  observations:
+    key-values:
+      application: cart-service
+  tracing:
+    sampling:
+      probability: 1.0
+logging:
+  pattern:
+    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "
