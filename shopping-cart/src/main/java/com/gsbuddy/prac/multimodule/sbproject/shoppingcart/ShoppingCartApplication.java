@@ -1,5 +1,6 @@
 package com.gsbuddy.prac.multimodule.sbproject.shoppingcart;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -16,24 +17,32 @@ import java.util.Map;
 @SpringBootApplication
 @RestController
 @RequestMapping("/cart")
+@Slf4j
 public class ShoppingCartApplication {
 
-	RestClient restClient = RestClient.create();
+	private final RestClient restClient;
+
+	public ShoppingCartApplication(RestClient.Builder restClientBuilder) {
+		this.restClient = restClientBuilder.baseUrl("http://localhost:8001").build();
+	}
 
 	@GetMapping("/getCartAndWishlistItems")
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, List<String>> listWishListedItems() {
 
+		log.info("I am in ShoppingCartApplication");
 		List<String> cartItems = List.of("Pager","Pen","Addidas Shoe","Socket");
 
+		log.info("About to call WishListApplication from ShoppingCartApplication");
 		List wishListedItems = restClient.get()
-				.uri("http://localhost:8001/wish/getWishListedItems")
+				.uri("/wish/getWishListedItems")
 				.retrieve()
 				.body(List.class);
 
         Map<String, List<String>> result = new HashMap<>();
 		result.put("CartItems",cartItems);
 		result.put("WishListItems",wishListedItems);
+		log.info("Ready to return the map");
 
 		return result;
 	}

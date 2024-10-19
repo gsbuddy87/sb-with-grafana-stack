@@ -17,7 +17,7 @@ management:
         http.server.requests: true
   observations:
     key-values:
-      application: cart-service
+      application: shopping-cart
   tracing:
     sampling:
       probability: 1.0
