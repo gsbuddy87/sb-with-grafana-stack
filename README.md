@@ -11,6 +11,14 @@ From Intellij, both the modules can be run together using the following commands
 1. _**./gradlew :wish-list:bootRun**_ 
 2. _**./gradlew :shopping-cart:bootRun**_
 
+## Pre-requisites
+1. JDK 21
+2. Docker (used docker engine under WSL)
+3. Spring-boot
+4. Intellij
+5. Git
+6. Gradle
+
 ## Docker
 docker folder contains all necessary files needed to run grafana, loki, prometheus and tempo in docker container.
 docker-compose is used to run these containers only.
